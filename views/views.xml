@@ -1,0 +1,71 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="sec_lab.call_log_form">
+      <field name="name">Call log list</field>
+      <field name="model">iti.call.log</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="timestamp"/>
+              <field name="customer"/>
+              <field name="from_number"/>
+              <field name="to_number"/>
+              <field name="duration"/>
+              <field name="price" />
+              <field name="notes"/>
+              <field name="package_id"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="sec_lab.list">
+      <field name="name">Call log list</field>
+      <field name="model">iti.call.log</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="timestamp"/>
+          <field name="customer"/>
+          <field name="from_number"/>
+          <field name="to_number"/>
+          <field name="duration"/>
+          <field name="price" sum='Total'/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="sec_lab.call_log_action_window">
+      <field name="name">Call logs</field>
+      <field name="res_model">iti.call.log</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="sec_lab.package_action_window">
+      <field name="name">Package</field>
+      <field name="res_model">iti.package</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="ITI Communication" id="sec_lab.menu_iti_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="ITI Communication" id="sec_lab.menu_calls" parent="sec_lab.menu_iti_root"/>
+ 
+
+    <menuitem name="Call Logs" id="sec_lab.menu_call_logs_list" parent="sec_lab.menu_calls"
+              action="sec_lab.call_log_action_window"/>
+    <menuitem name="Packages" id="sec_lab.iti_packages" parent="sec_lab.menu_calls"
+              action="sec_lab.package_action_window"/>
+
+  </data>
+</odoo>
